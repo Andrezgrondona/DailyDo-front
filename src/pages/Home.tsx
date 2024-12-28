@@ -18,9 +18,14 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/api/tasks")
+      .get(`${import.meta.env.VITE_API_BASE_URL}/api/tasks`)
       .then((response) => {
-        setTasks(response.data);
+        // Verifica si la respuesta es un arreglo
+        if (Array.isArray(response.data)) {
+          setTasks(response.data);
+        } else {
+          console.error("La respuesta no es un arreglo:", response.data);
+        }
         setLoading(false);
       })
       .catch((error) => {
@@ -31,40 +36,61 @@ const Home = () => {
 
   const handleCreateTask = (title: string) => {
     axios
-      .post("http://localhost:5001/api/tasks", { title })
-      .then((response) => setTasks([...tasks, response.data]))
+      .post(`${import.meta.env.VITE_API_BASE_URL}/api/tasks`, { title })
+      .then((response) => {
+        if (Array.isArray(tasks)) {
+          setTasks([...tasks, response.data]);
+        }
+      })
       .catch((error) => console.error(error));
   };
 
   const handleDeleteTask = (id: string) => {
     axios
-      .delete(`http://localhost:5001/api/tasks/${id}`)
-      .then(() => setTasks(tasks.filter((task) => task._id !== id)))
+      .delete(`${import.meta.env.VITE_API_BASE_URL}/api/tasks/${id}`)
+      .then(() => {
+        if (Array.isArray(tasks)) {
+          setTasks(tasks.filter((task) => task._id !== id));
+        }
+      })
       .catch((error) => console.error(error));
   };
 
   const handleToggleCompleted = (id: string) => {
     axios
-      .put(`http://localhost:5001/api/tasks/${id}`, { completed: true })
-      .then((response) =>
-        setTasks(tasks.map((task) => (task._id === id ? response.data : task)))
-      )
+      .put(`${import.meta.env.VITE_API_BASE_URL}/api/tasks/${id}`, {
+        completed: true,
+      })
+      .then((response) => {
+        if (Array.isArray(tasks)) {
+          setTasks(
+            tasks.map((task) => (task._id === id ? response.data : task))
+          );
+        }
+      })
       .catch((error) => console.error(error));
   };
 
   const handleEditTask = (id: string, title: string) => {
     axios
-      .put(`http://localhost:5001/api/tasks/${id}`, { title })
-      .then((response) =>
-        setTasks(tasks.map((task) => (task._id === id ? response.data : task)))
-      )
+      .put(`${import.meta.env.VITE_API_BASE_URL}/api/tasks/${id}`, { title })
+      .then((response) => {
+        if (Array.isArray(tasks)) {
+          setTasks(
+            tasks.map((task) => (task._id === id ? response.data : task))
+          );
+        }
+      })
       .catch((error) => console.error(error));
   };
 
+  // Filtrado de tareas
   const filteredTasks =
     filter === "all"
       ? tasks
-      : tasks.filter((task) => task.completed === (filter === "completed"));
+      : Array.isArray(tasks)
+      ? tasks.filter((task) => task.completed === (filter === "completed"))
+      : [];
 
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter((task) => task.completed).length;
