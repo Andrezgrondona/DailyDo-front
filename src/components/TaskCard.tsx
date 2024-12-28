@@ -29,25 +29,25 @@ const TaskCard: React.FC<TaskCardProps> = ({
 
   const Modal = () => (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded shadow-md w-1/3">
+      <div className="bg-white p-6 rounded shadow-md w-full max-w-lg mx-4 sm:mx-6 lg:mx-auto">
         <h2 className="text-lg font-bold mb-4">Editar Tarea</h2>
         <input
           type="text"
           value={newTitle}
           onChange={(e) => setNewTitle(e.target.value)}
           className="border p-2 rounded w-full mb-4"
-          autoFocus 
+          autoFocus
         />
-        <div className="flex justify-between">
+        <div className="flex justify-between space-x-2">
           <button
             onClick={handleEdit}
-            className="px-4 py-2 text-white bg-blue-500 rounded"
+            className="px-4 py-2 text-white bg-blue-500 rounded flex-1"
           >
             Guardar
           </button>
           <button
             onClick={() => setIsEditing(false)}
-            className="px-4 py-2 text-white bg-gray-500 rounded"
+            className="px-4 py-2 text-white bg-gray-500 rounded flex-1"
           >
             Cancelar
           </button>
@@ -55,6 +55,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
       </div>
     </div>
   );
+  
 
   return (
     <div 
