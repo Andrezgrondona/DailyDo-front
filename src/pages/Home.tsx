@@ -4,8 +4,15 @@ import TaskCard from "../components/TaskCard";
 import TaskForm from "../components/TaskForm";
 import CircularProgressBar from "../components/CircularProgressBar";
 
+interface Task {
+  _id: string;
+  title: string;
+  completed: boolean;
+  createdAt: string;
+}
+
 const Home = () => {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
 
@@ -32,7 +39,7 @@ const Home = () => {
   const handleDeleteTask = (id: string) => {
     axios
       .delete(`http://localhost:5001/api/tasks/${id}`)
-      .then(() => setTasks(tasks.filter((task: any) => task._id !== id)))
+      .then(() => setTasks(tasks.filter((task) => task._id !== id)))
       .catch((error) => console.error(error));
   };
 
@@ -40,9 +47,7 @@ const Home = () => {
     axios
       .put(`http://localhost:5001/api/tasks/${id}`, { completed: true })
       .then((response) =>
-        setTasks(
-          tasks.map((task: any) => (task._id === id ? response.data : task))
-        )
+        setTasks(tasks.map((task) => (task._id === id ? response.data : task)))
       )
       .catch((error) => console.error(error));
   };
@@ -51,9 +56,7 @@ const Home = () => {
     axios
       .put(`http://localhost:5001/api/tasks/${id}`, { title })
       .then((response) =>
-        setTasks(
-          tasks.map((task: any) => (task._id === id ? response.data : task))
-        )
+        setTasks(tasks.map((task) => (task._id === id ? response.data : task)))
       )
       .catch((error) => console.error(error));
   };
@@ -61,11 +64,8 @@ const Home = () => {
   const filteredTasks =
     filter === "all"
       ? tasks
-      : tasks.filter(
-          (task: any) => task.completed === (filter === "completed")
-        );
+      : tasks.filter((task) => task.completed === (filter === "completed"));
 
- 
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter((task) => task.completed).length;
   const pendingTasks = totalTasks - completedTasks;
@@ -87,7 +87,7 @@ const Home = () => {
           <div className="flex items-center">
             <CircularProgressBar percentage={completionPercentage} />
             <div className="ml-5">
-              <h2 className="hidden md:block  text-xl ml-20">
+              <h2 className="hidden md:block text-xl ml-20">
                 Progreso del Día
               </h2>
               <p className="hidden md:block text-gray-600 mt-1 ml-20">
@@ -99,7 +99,7 @@ const Home = () => {
               <h2 className="text-xl ml-20">Aún te quedan</h2>
               <p className="text-gray-600 mt-1 ml-20">
                 {pendingTasks} tareas pendientes
-              </p>{" "}
+              </p>
             </div>
           </div>
         </div>
@@ -131,7 +131,7 @@ const Home = () => {
           {loading ? (
             <p>Cargando tareas...</p>
           ) : (
-            filteredTasks.map((task: any) => (
+            filteredTasks.map((task) => (
               <TaskCard
                 key={task._id}
                 id={task._id}
