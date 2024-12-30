@@ -54,7 +54,7 @@ Este es el frontend del proyecto DailyDo, una aplicación diseñada para la gest
 
  
  ### Depoly
-https://dailydo-backend-production.up.railway.app
+ https://daily-do-front.vercel.app/
 
 ## Imagen Desktop
 ![Captura de pantalla 1](https://i.ibb.co/YZpnk9T/Captura-de-pantalla-2024-12-30-a-la-s-9-40-33-a-m.png)
