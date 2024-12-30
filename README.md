@@ -1,50 +1,63 @@
-# React + TypeScript + Vite
+# DailyDo - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción
+Este es el frontend del proyecto DailyDo, una aplicación diseñada para la gestión eficiente de tareas diarias.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+   
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Tecnologías Usadas
 
-- Configure the top-level `parserOptions` property like this:
+### 1. **React con Vite**
+### 2. **TypeScript**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 3. **Tailwind CSS**
+### 4. **Axios**
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+
+## Instalación
+
+1. Clona este repositorio:
+   ```bash
+   git clone https://github.com/Andrezgrondona/DailyDo-front.git
+
+2. Instala las Dependencias:
+   ```bash
+   npm install
+
+3. Inicia la Aplicación:
+   ```bash
+   npm run dev
+
+3. Configura o remplaza  la URL del backend en el archivo /src/pages/Home.tsx:
+   ```bash
+   Produccion:
+   .get(`${import.meta.env.VITE_API_BASE_URL}/api/tasks`)
+
+   local:
+   .get("http://localhost:5001/api/tasks")
+ 
+ 
+##  Endpoints del Backend
+#### Base URL: https://dailydo-backend-production.up.railway.app/api
+
+| **Método** | **Endpoint**         | **Descripción**                 |
+|------------|----------------------|---------------------------------|
+| GET        | `/tasks`             | Obtener todas las tareas        |
+| GET        | `/tasks/:id`         | Obtener una tarea por ID        |
+| POST       | `/tasks`             | Crear una nueva tarea           |
+| PUT        | `/tasks/:id`         | Actualizar una tarea existente  |
+| DELETE     | `/tasks/:id`         | Eliminar una tarea por ID       |
+
+ 
+ ### Depoly
+https://dailydo-backend-production.up.railway.app
+
+## Imagen Desktop
+![Captura de pantalla 1](https://i.ibb.co/YZpnk9T/Captura-de-pantalla-2024-12-30-a-la-s-9-40-33-a-m.png)
+
+## Imagen Responsive
+![Captura de pantalla 2](https://i.ibb.co/gzWkHQF/Captura-de-pantalla-2024-12-30-a-la-s-9-41-01-a-m.png)
